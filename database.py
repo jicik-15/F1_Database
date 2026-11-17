@@ -93,11 +93,11 @@ class GrandPrix(Season):
             sys.exit()
 
     def grand_prix_id(self):
-        #urci id konkretni velke ceny, k tomu vyuziva metody parent tridy 'Season'
-        race_id = self.race_id_per_season()
-
+        #urci 'raceId' konkretni velke ceny
         if self.round <= self.season_lenght():
-            return race_id[self.round - 1]
+            race_id = self.database.loc[(self.database['year'] == self.year) & (self.database['round'] == self.round), 'raceId'].iloc[0]
+            return race_id
+
         else:
             print(f'Number of rounds exceeded. The {self.year} season had only {self.season_lenght()} rounds.')
             sys.exit()

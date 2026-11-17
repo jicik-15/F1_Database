@@ -13,11 +13,16 @@ results_data = pd.read_csv('results.csv', sep=',')
 lap_times_data = pd.read_csv('lap_times.csv', sep=',')
 
 #TEST
+year = int(input('Season: '))
+season = Season(races_data, year)
+print(f'The {year} season had {season.season_lenght()} rounds.')
+round_id = int(input('Round: '))
+
 laptimes = []
 driver_names = []
-gp = GrandPrix(races_data, 2012, results_data, lap_times_data, 20)
+gp = GrandPrix(races_data, year, results_data, lap_times_data, round_id)
 drivers = gp.drivers_per_race()
-gp_name = {'name': str(gp.race_name()), 'year': 2012}
+gp_name = {'name': str(gp.race_name()), 'year': year}
 
 for item in drivers:
     laptimes.append(gp.driver_lap_times(item))
