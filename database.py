@@ -133,21 +133,27 @@ class GrandPrix(Season):
         return sum(self.driver_lap_times(driver_id))
 
     def drivers_per_race(self):
-            #vrati seznam pilotu v danem zavode
-            race_id = self.grand_prix_id()
-            drivers = []
-            driver_rows = self.results_data.loc[self.results_data['raceId'] == race_id, 'driverId'] #najde sloupec s hodnotou 'driverId'
-            for item in driver_rows:
-                drivers.append(int(item))
+        #vrati seznam pilotu v danem zavode
+        race_id = self.grand_prix_id()
+        drivers = []
+        driver_rows = self.results_data.loc[self.results_data['raceId'] == race_id, 'driverId'] #najde sloupec s hodnotou 'driverId'
+        for item in driver_rows:
+            drivers.append(int(item))
     
-            return drivers
+        return drivers
 
     def race_name(self):
-            #vrati nazev konkretniho zavodu
-            race_id = self.grand_prix_id()
-            gp_name = self.database.loc[self.database['raceId'] == race_id, 'name'].iloc[0]
+        #vrati nazev konkretniho zavodu
+        race_id = self.grand_prix_id()
+        gp_name = self.database.loc[self.database['raceId'] == race_id, 'name'].iloc[0]
                 
-            return gp_name
+        return gp_name
+
+    def race_info(self, requested_info):
+        #vrati zvolenou hodnotu z datasetu
+        race_id = self.grand_prix_id()
+        info = self.database.loc[self.database['raceId'] == race_id, requested_info].iloc[0]
+        return info
 
 
 class Driver:
