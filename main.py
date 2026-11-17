@@ -14,9 +14,18 @@ lap_times_data = pd.read_csv('lap_times.csv', sep=',')
 
 #TEST
 laptimes = []
-drivers = [1, 830, 846, 844, 832, 822]
-gp = GrandPrix(races_data, 2021, results_data, lap_times_data, 22)
+driver_names = []
+gp = GrandPrix(races_data, 2012, results_data, lap_times_data, 20)
+drivers = gp.drivers_per_race()
+gp_name = {'name': str(gp.race_name()), 'year': 2012}
+
 for item in drivers:
     laptimes.append(gp.driver_lap_times(item))
 
-visualisation(laptimes, 100)
+for i in range(len(drivers)):
+    driver = Driver(drivers_data, drivers[i])
+    driver_names.append(driver.driver_name())
+
+print(driver_names)
+
+visualisation(laptimes, 100, gp_name)

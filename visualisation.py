@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
-def visualisation(laps_lists, speed):
+def visualisation(laps_lists, speed, gp_name):
 
     # Parametry pohybu
     R = 3           # Poloměr kružnice
@@ -11,22 +11,19 @@ def visualisation(laps_lists, speed):
     speed_factor = speed   # Zrychleni animace
 
     # Převod časů z ms na sekundy
-    lap_times = [
-        np.array(laps, dtype=float) / 1000 / speed_factor
-        for laps in laps_lists
-    ]
+    lap_times = [np.array(laps, dtype=float) / 1000 / speed_factor for laps in laps_lists]
 
     # Celková doba animace
     total_time = max(sum(laps) for laps in lap_times)
 
     fig, ax = plt.subplots()
 
+    ax.set_title(f'{gp_name['name']} {gp_name['year']}',fontweight="bold")
     ax.set_aspect('equal')
     ax.axis('off')
 
     # Počáteční úsečka
-    ax.plot([R - 0.5, R + 0.5], [0, 0],
-            'r-', linewidth=2)
+    ax.plot([R - 0.5, R + 0.5], [0, 0], 'r-', linewidth=5)
 
     # Kružnice
     theta = np.linspace(0, 2*np.pi, 200)
@@ -80,3 +77,4 @@ def visualisation(laps_lists, speed):
     animation = FuncAnimation(fig, update, frames=int(np.ceil(total_time * fps)) + 1, interval=1000/fps, blit=True, repeat=False)
 
     plt.show()
+    speed_factor = speed   # Zrychleni animace

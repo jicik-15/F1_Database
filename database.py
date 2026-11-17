@@ -1,4 +1,5 @@
 import pandas as pd
+import sys
 
 class Circuit:
 
@@ -79,17 +80,6 @@ class Season:
 
         return info_list
 
-    # Dole dodelat !!!
-
-    def grand_prix_per_year(self): #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NEFUNKCNI !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            # metoda vrati seznam nazvu okruhuu v danem roce
-            if len(self.circuits_id) == 0:
-                self.circuits_id_per_year()
-
-            if len(self.circuits_name) == 0:
-                for i in self.circuits_id:
-                    self.circuits_name.append([str(self.database.loc[i, 'name']),self.database.loc[i, 'date']])
-            return self.circuits_name
 
 class GrandPrix(Season):
 
@@ -100,7 +90,7 @@ class GrandPrix(Season):
         self.round = round
         if self.round > 24:
             print(f'Number of rounds exceeded. Maximum number of rounds in a season is 24.')
-            pass
+            sys.exit()
 
     def grand_prix_id(self):
         #urci id konkretni velke ceny, k tomu vyuziva metody parent tridy 'Season'
@@ -110,7 +100,7 @@ class GrandPrix(Season):
             return race_id[self.round - 1]
         else:
             print(f'Number of rounds exceeded. The {self.year} season had only {self.season_lenght()} rounds.')
-            pass
+            sys.exit()
 
     def lap_count(self):
         #urceni poctu odjetych kol v konkretnim zavode
@@ -120,6 +110,11 @@ class GrandPrix(Season):
         return race['lap'].max()
 
     def driver_lap_times(self, driver_id, milliseconds = True):
+        #vrati seznam obsahujici jednotlive casy na kolo, a to budto v milisekundach nebo v normalnim zapise casu (string)
+        if self.year < 1982:
+            print(f'Lap time data befor the year 1982 does not exist.')
+            sys.exit()
+
         race_id = self.grand_prix_id()
         lap_times = []
         race_rows = self.lap_times_data.loc[(self.lap_times_data['raceId'] == race_id) & (self.lap_times_data['driverId'] == driver_id)] #najde radky, kde jsou splneny obe podminky
@@ -136,6 +131,23 @@ class GrandPrix(Season):
     def driver_race_time(self, driver_id):
 
         return sum(self.driver_lap_times(driver_id))
+
+    def drivers_per_race(self):
+            #vrati seznam pilotu v danem zavode
+            race_id = self.grand_prix_id()
+            drivers = []
+            driver_rows = self.results_data.loc[self.results_data['raceId'] == race_id, 'driverId'] #najde sloupec s hodnotou 'driverId'
+            for item in driver_rows:
+                drivers.append(int(item))
+    
+            return drivers
+
+    def race_name(self):
+            #vrati nazev konkretniho zavodu
+            race_id = self.grand_prix_id()
+            gp_name = self.database.loc[self.database['raceId'] == race_id, 'name'].iloc[0]
+                
+            return gp_name
 
 
 class Driver:
@@ -158,6 +170,9 @@ class Driver:
 
     def __repr__(self):
         return f'{self.forename} {self.surname} is a {self.nationality} driver. Their racing number is {self.driver_number}.'
+
+    def driver_name(self):
+        return self.driver_ref
 
 
 class Career(GrandPrix):
