@@ -34,5 +34,6 @@ for i in range(len(drivers)):
 print(driver_names)
 
 print(gp.race_info('year'))
+print(gp.constructors_per_race())
 
 visualisation(laptimes, 100, gp_name)

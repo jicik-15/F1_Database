@@ -125,7 +125,6 @@ class GrandPrix(Season):
             elif milliseconds == False:
                 lap_times.append(str(race_rows.iloc[i]['time'])) #prida do seznamu hodnotu 'time' pro radek 'i'
 
-
         return lap_times
 
     def driver_race_time(self, driver_id):
@@ -141,6 +140,17 @@ class GrandPrix(Season):
             drivers.append(int(item))
     
         return drivers
+
+    def constructors_per_race(self):
+        #vrati seznam konstrukteru v danem zavode
+        race_id = self.grand_prix_id()
+        constructors = []
+        constructor_rows = self.results_data.loc[self.results_data['raceId'] == race_id, 'constructorId'] #najde sloupec s hodnotou 'constructorId'
+        for item in constructor_rows:
+            if item not in constructors:
+                constructors.append(int(item))
+
+        return constructors
 
     def race_name(self):
         #vrati nazev konkretniho zavodu
