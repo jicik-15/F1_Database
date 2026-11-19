@@ -16,7 +16,8 @@ def visualisation(laps_lists, speed, gp_name, colors):
     # Celková doba animace
     total_time = max(sum(laps) for laps in lap_times)
 
-    average_time = sum([np.mean(laps) for laps in lap_times]) / len(lap_times)
+    #average_time = sum([np.mean(laps) for laps in lap_times]) / len(lap_times)
+    average_time = np.mean(np.concatenate(lap_times))
     print(f'Average: {average_time}')
 
     #Nastaveni grafu
@@ -24,7 +25,7 @@ def visualisation(laps_lists, speed, gp_name, colors):
 
     fig.set_facecolor('#222222')  #barva pozadi cele vizualizace
 
-    ax.set_title(f'{gp_name['name']} {gp_name['year']}', color='#EEEEEE', fontweight="bold")
+    ax.set_title(f'{gp_name['name']} {gp_name['year']}', color='#EEEEEE', fontweight="black")
     ax.set_aspect('equal')
     ax.axis('off')
 
@@ -47,7 +48,7 @@ def visualisation(laps_lists, speed, gp_name, colors):
 
     # Aktualizace polohy všech bodů
     def update(frame):
-
+        
         t = frame / fps
 
         for i, laps in enumerate(lap_times):
@@ -57,11 +58,18 @@ def visualisation(laps_lists, speed, gp_name, colors):
             for lap_time in laps:
 
                 #zmena barvy pozadi 
-                if i == 0:   
-                    if lap_time > 5 * average_time:
-                        fig.set_facecolor('red')  #barva pozadi cele vizualizace
+                if i == 0 and t < elapsed + lap_time:   
+                    if lap_time > 2 * average_time:
+                        fig.set_facecolor('#CC0000') #barva pozadi cele vizualizace
+                        ax.set_title(f'RED FLAG', color='#EEEEEE', fontweight="black")
+
+                    elif lap_time > 1.2 * average_time:
+                        fig.set_facecolor('#F5C71A') #barva pozadi cele vizualizace
+                        ax.set_title(f'SAFETY CAR', color='#EEEEEE', fontweight="black")
+                                    
                     else:
                         fig.set_facecolor('#222222')  #barva pozadi cele vizualizace
+                        ax.set_title(f'{gp_name['name']} {gp_name['year']}', color='#EEEEEE', fontweight="black") #nastaveni nadpisu
 
                 #---pokracovani kodu---
                 
@@ -90,7 +98,7 @@ def visualisation(laps_lists, speed, gp_name, colors):
         return points
 
     # Animace
-    animation = FuncAnimation(fig, update, frames=int(np.ceil(total_time * fps)) + 1, interval=1000/fps, blit=True, repeat=False)
+    animation = FuncAnimation(fig, update, frames=int(np.ceil(total_time * fps)) + 1, interval=1000/fps, blit=False, repeat=False)
 
     plt.show()
     speed_factor = speed   # Zrychleni animace

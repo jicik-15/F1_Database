@@ -6,6 +6,7 @@ from matplotlib.animation import FuncAnimation
 from database import Circuit, Season, GrandPrix, Driver, Constructors, Career
 from visualisation import visualisation
 from colours import Colours
+from state import RaceState
 
 circuits_data = pd.read_csv('circuits.csv', sep=',')        # nacteni tabulky pomoci knihovny pandas, separator = ','
 races_data = pd.read_csv('races.csv', sep=',')
