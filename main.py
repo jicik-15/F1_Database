@@ -3,14 +3,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
-from database import Circuit, Season, GrandPrix, Driver, Career
+from database import Circuit, Season, GrandPrix, Driver, Constructors, Career
 from visualisation import visualisation
+from colours import Colours
 
 circuits_data = pd.read_csv('circuits.csv', sep=',')        # nacteni tabulky pomoci knihovny pandas, separator = ','
 races_data = pd.read_csv('races.csv', sep=',')
 drivers_data = pd.read_csv('drivers.csv', sep=',')
 results_data = pd.read_csv('results.csv', sep=',')
 lap_times_data = pd.read_csv('lap_times.csv', sep=',')
+constructors_data = pd.read_csv('constructors.csv', sep=',')
 
 #TEST
 year = int(input('Season: '))
@@ -36,4 +38,22 @@ print(driver_names)
 print(gp.race_info('year'))
 print(gp.constructors_per_race())
 
-visualisation(laptimes, 100, gp_name)
+#const = Constructors(constructors_data, 1)
+#const2 = Constructors(constructors_data, 'mclaren')
+#print(const.constructor_info('name'))
+#print(const2.constructor_info('id'))
+
+constructors = gp.constructors_per_race(True)
+print(constructors)
+colours = []
+const_names = []
+for i in range(len(constructors)):
+    const = Constructors(constructors_data, constructors[i])
+    const_names.append(const.constructor_info('ref'))
+    col = Colours(const.constructor_info('ref'))
+    colours.append(col.colours_per_constructor())
+
+print(const_names)
+print(colours)
+
+visualisation(laptimes, 100, gp_name, colours)

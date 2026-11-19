@@ -141,13 +141,18 @@ class GrandPrix(Season):
     
         return drivers
 
-    def constructors_per_race(self):
-        #vrati seznam konstrukteru v danem zavode
+    def constructors_per_race(self, repeat = False):
+        #vrati seznam konstrukteru v danem zavode, pokud je repeat == False, vrati kazdeho konstruktora pouze jednou, pokud je True, vrati vsechny vyskyty vsech konstruktoru
         race_id = self.grand_prix_id()
         constructors = []
         constructor_rows = self.results_data.loc[self.results_data['raceId'] == race_id, 'constructorId'] #najde sloupec s hodnotou 'constructorId'
-        for item in constructor_rows:
-            if item not in constructors:
+        if repeat == False:
+            for item in constructor_rows:
+                if item not in constructors:
+                    constructors.append(int(item))
+
+        elif repeat:
+            for item in constructor_rows:
                 constructors.append(int(item))
 
         return constructors
@@ -189,6 +194,28 @@ class Driver:
 
     def driver_name(self):
         return self.driver_ref
+
+class Constructors:
+    #trida zpracuje databazi constructors.csv a vytahne z ni data
+
+    def __init__(self, constructors_data, constructor):
+        #init tridy Constructors, jako vstupni promenna constructor muze byt bud id Konstruktora nebo jeho referencni jmeno(viz constructors.csv)
+        self.constructors_data = constructors_data
+        self.constructor = constructor
+
+    def constructor_info(self, requested_info):
+        if requested_info == 'id':
+            info = self.constructors_data.loc[(self.constructors_data['constructorId'] == self.constructor) | (self.constructors_data['constructorRef'] == self.constructor), 'constructorId'].iloc[0]
+
+        if requested_info == 'name':
+            info = self.constructors_data.loc[(self.constructors_data['constructorId'] == self.constructor) | (self.constructors_data['constructorRef'] == self.constructor), 'name'].iloc[0]
+
+        if requested_info == 'ref':
+            info = self.constructors_data.loc[(self.constructors_data['constructorId'] == self.constructor) | (self.constructors_data['constructorRef'] == self.constructor), 'constructorRef'].iloc[0]
+
+
+        return info
+
 
 
 class Career(GrandPrix):
