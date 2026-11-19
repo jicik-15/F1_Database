@@ -33,8 +33,8 @@ def visualisation(laps_lists, speed, gp_name, colors):
     ax.plot([R - 0.5, R + 0.5], [0, 0], 'r-', linewidth=5)
 
     # Kružnice
-    theta = np.linspace(0, 2*np.pi, 200)
-    ax.plot(R*np.cos(theta), R*np.sin(theta), '#EEEEEE', linewidth=3)
+    theta = np.linspace(0, 2*np.pi, 200) #vytvori 200 bodu v rozmezi 0 az 2pi
+    ax.plot(R*np.cos(theta), R*np.sin(theta), '#EEEEEE', linewidth=3) #vytvori kruznici
     
     # Vytvoření bodů
     #colors = ['red', 'blue', 'orange', 'green', 'purple', 'yellow', 'cyan', 'magenta']
@@ -58,15 +58,18 @@ def visualisation(laps_lists, speed, gp_name, colors):
             for lap_time in laps:
 
                 #zmena barvy pozadi 
-                if i == 0 and t < elapsed + lap_time:   
+                if i == 0 and t < elapsed + lap_time:
+                    print(1.2*average_time, lap_time, average_time)   
                     if lap_time > 2 * average_time:
                         fig.set_facecolor('#CC0000') #barva pozadi cele vizualizace
                         ax.set_title(f'RED FLAG', color='#EEEEEE', fontweight="black")
 
                     elif lap_time > 1.2 * average_time:
+                        print(1.2*average_time, lap_time, average_time)
                         fig.set_facecolor('#F5C71A') #barva pozadi cele vizualizace
                         ax.set_title(f'SAFETY CAR', color='#EEEEEE', fontweight="black")
-                                    
+
+                                    #DODELAT: pri vypostu average_time je potreba odstranit kola pod cervenou vlajkou !!!!!!
                     else:
                         fig.set_facecolor('#222222')  #barva pozadi cele vizualizace
                         ax.set_title(f'{gp_name['name']} {gp_name['year']}', color='#EEEEEE', fontweight="black") #nastaveni nadpisu
@@ -95,7 +98,7 @@ def visualisation(laps_lists, speed, gp_name, colors):
 
             points[i].set_data([x], [y])
 
-        return points
+        return points,
 
     # Animace
     animation = FuncAnimation(fig, update, frames=int(np.ceil(total_time * fps)) + 1, interval=1000/fps, blit=False, repeat=False)
