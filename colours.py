@@ -19,10 +19,10 @@ class Colours:
             return self.colours[self.constructors]
 
 #TEST
-col = Colours('mclaren')
-print(col.colours_per_constructor())
-print(col.colours)
+#col = Colours('mclaren')
+#print(col.colours_per_constructor())
+#print(col.colours)
 
-col2 = Colours('mclaren1')
-print(col2.colours_per_constructor())
-print(col2.colours)
+#col2 = Colours('mclaren1')
+#print(col2.colours_per_constructor())
+#print(col2.colours)

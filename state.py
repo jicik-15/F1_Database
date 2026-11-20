@@ -25,7 +25,7 @@ class LaptimesCleanup:
             if len(item) > 0:
                 clean_laptimes.append(item)
 
-        self.laptimes = clean_laptimes
+        return clean_laptimes
                 
     
     def average(self):
@@ -41,9 +41,11 @@ class LaptimesCleanup:
             
     def time_remove(self, time_multiplication):
         #odstrani z laptimes vybrane casy na kolo podle velikosti time_multiplication
-        self.remove_empty_lists()
+        laptimes = self.remove_empty_lists()
         average_time = self.average()
-        for i in range(len(self.laptimes)):
-            for j in range(len(self.laptimes[i])):
-                if self.laptimes[i][j] > time_multiplication * average_time: #DODELAT!!!
-                    self.laptimes[i][j] = int(average_time)
+        for i in range(len(laptimes)):
+            for j in range(len(laptimes[i])):
+                if laptimes[i][j] > time_multiplication * average_time: #DODELAT!!!
+                    laptimes[i][j] = int(average_time)
+
+    

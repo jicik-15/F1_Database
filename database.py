@@ -204,15 +204,31 @@ class Constructors:
         self.constructor = constructor
 
     def constructor_info(self, requested_info):
-        if requested_info == 'id':
-            info = self.constructors_data.loc[(self.constructors_data['constructorId'] == self.constructor) | (self.constructors_data['constructorRef'] == self.constructor), 'constructorId'].iloc[0]
+        if isinstance(self.constructor, list): #kontroluje, zdali je promenna self.constructor typu list
+            info = []
+            for item in self.constructor:
+                if requested_info == 'id':
+                    info.append(self.constructors_data.loc[(self.constructors_data['constructorId'] == item) | (self.constructors_data['constructorRef'] == item), 'constructorId'].iloc[0])
+                
+                if requested_info == 'name':
+                    info.append(self.constructors_data.loc[(self.constructors_data['constructorId'] == item) | (self.constructors_data['constructorRef'] == item), 'name'].iloc[0])
+                
+                if requested_info == 'ref':
+                    info.append(self.constructors_data.loc[(self.constructors_data['constructorId'] == item) | (self.constructors_data['constructorRef'] == item), 'constructorRef'].iloc[0])
 
-        if requested_info == 'name':
-            info = self.constructors_data.loc[(self.constructors_data['constructorId'] == self.constructor) | (self.constructors_data['constructorRef'] == self.constructor), 'name'].iloc[0]
+        elif isinstance(self.constructor, (str, int)): #kontroluje, zdali je promenna self.constructor typu str nebo int
+            if requested_info == 'id':
+                info = self.constructors_data.loc[(self.constructors_data['constructorId'] == self.constructor) | (self.constructors_data['constructorRef'] == self.constructor), 'constructorId'].iloc[0]
 
-        if requested_info == 'ref':
-            info = self.constructors_data.loc[(self.constructors_data['constructorId'] == self.constructor) | (self.constructors_data['constructorRef'] == self.constructor), 'constructorRef'].iloc[0]
+            if requested_info == 'name':
+                info = self.constructors_data.loc[(self.constructors_data['constructorId'] == self.constructor) | (self.constructors_data['constructorRef'] == self.constructor), 'name'].iloc[0]
 
+            if requested_info == 'ref':
+                info = self.constructors_data.loc[(self.constructors_data['constructorId'] == self.constructor) | (self.constructors_data['constructorRef'] == self.constructor), 'constructorRef'].iloc[0]
+
+        else:
+            info = []
+            print(f'Wrong type')
 
         return info
 
