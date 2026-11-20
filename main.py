@@ -6,7 +6,7 @@ from matplotlib.animation import FuncAnimation
 from database import Circuit, Season, GrandPrix, Driver, Constructors, Career
 from visualisation import visualisation
 from colours import Colours
-from state import RaceState
+from state import RaceState, LaptimesCleanup
 
 circuits_data = pd.read_csv('circuits.csv', sep=',')        # nacteni tabulky pomoci knihovny pandas, separator = ','
 races_data = pd.read_csv('races.csv', sep=',')
@@ -57,4 +57,15 @@ for i in range(len(constructors)):
 print(const_names)
 print(colours)
 
-visualisation(laptimes, 100, gp_name, colours)
+print(laptimes)
+
+print('############################################################################################################')
+clean_laps = LaptimesCleanup(laptimes)
+clean_laps.remove_empty_lists()
+print(clean_laps.laptimes)
+
+print('************************************************************************************************************')
+clean_laps.time_remove(2)
+print(clean_laps.laptimes)
+
+#visualisation(laptimes, 100, gp_name, colours)

@@ -14,3 +14,36 @@ class RaceState:
         else:
             return 1.4
 
+class LaptimesCleanup:
+
+    def __init__(self, laptimes):
+        self.laptimes = laptimes #laptimes je list listů
+
+    def remove_empty_lists(self):
+        clean_laptimes = []
+        for item in self.laptimes:
+            if len(item) > 0:
+                clean_laptimes.append(item)
+
+        self.laptimes = clean_laptimes
+                
+    
+    def average(self):
+        sum = 0
+        length = 0
+        for i in range(len(self.laptimes)):
+            for item in self.laptimes[i]:
+                sum += item
+                length += 1
+
+        return (sum / length)
+        
+            
+    def time_remove(self, time_multiplication):
+        #odstrani z laptimes vybrane casy na kolo podle velikosti time_multiplication
+        self.remove_empty_lists()
+        average_time = self.average()
+        for i in range(len(self.laptimes)):
+            for j in range(len(self.laptimes[i])):
+                if self.laptimes[i][j] > time_multiplication * average_time: #DODELAT!!!
+                    self.laptimes[i][j] = int(average_time)
