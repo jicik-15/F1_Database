@@ -65,7 +65,7 @@ def visualisation(laps_lists, speed, gp_name, colors):
                         ax.set_title(f'RED FLAG', color='#EEEEEE', fontweight="black")
 
                     elif lap_time > 1.2 * average_time:
-                        print(1.2*average_time, lap_time, average_time)
+                        #print(1.2*average_time, lap_time, average_time)
                         fig.set_facecolor('#F5C71A') #barva pozadi cele vizualizace
                         ax.set_title(f'SAFETY CAR', color='#EEEEEE', fontweight="black")
 

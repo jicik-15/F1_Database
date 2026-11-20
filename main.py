@@ -21,14 +21,14 @@ season = Season(races_data, year)
 print(f'The {year} season had {season.season_lenght()} rounds.')
 round_id = int(input('Round: '))
 
-laptimes = []
+lap_times = []
 driver_names = []
 gp = GrandPrix(races_data, year, results_data, lap_times_data, round_id)
 drivers = gp.drivers_per_race()
 gp_name = {'name': str(gp.race_name()), 'year': year}
 
 for item in drivers:
-    laptimes.append(gp.driver_lap_times(item))
+    lap_times.append(gp.driver_lap_times(item))
 
 for i in range(len(drivers)):
     driver = Driver(drivers_data, drivers[i])
@@ -57,15 +57,19 @@ for i in range(len(constructors)):
 print(const_names)
 print(colours)
 
-print(laptimes)
+#lap_copy = laptimes.copy()
+print(lap_times)
 
-print('############################################################################################################')
-clean_laps = LaptimesCleanup(laptimes)
-clean_laps.remove_empty_lists()
-print(clean_laps.laptimes)
+#print('############################################################################################################')
+#clean_laps = LaptimesCleanup(lap_times.copy())
+#clean_laps.remove_empty_lists()
+#print(clean_laps.laptimes)
 
-print('************************************************************************************************************')
-clean_laps.time_remove(2)
-print(clean_laps.laptimes)
+#print('************************************************************************************************************')
+#clean_laps.time_remove(2)
+#print(clean_laps.laptimes)
 
-#visualisation(laptimes, 100, gp_name, colours)
+#print('------------------------------------------------------------------------------------------------------------')
+#print(lap_copy)
+
+visualisation(lap_times, 100, gp_name, colours)
