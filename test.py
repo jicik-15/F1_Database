@@ -14,7 +14,7 @@ constructors_data = pd.read_csv('constructors.csv', sep=',')
 
 
 year = 2021
-round_id = 22
+round_id = 21
 gp = db.GrandPrix(races_data, year, results_data, lap_times_data, round_id)
 colours = col.Colours(constructors_data)
 constructors = gp.constructors_per_race(True)
@@ -36,9 +36,11 @@ for i in range(len(constructors)): #tento if uz neni potreba, nahrazeno vylepsen
 print(lap_times)
 cleanup = st.LaptimesCleanup(lap_times)
 lap_clean = cleanup.remove_empty_lists()
+lap_removed = cleanup.time_remove(2.5)
 
 print(constructors)
-print(lap_clean)
+#print(lap_clean)
+print(lap_removed)
 print(type('name'))
 
 #vis.visualisation(lap_times, 100, gp_name, constructor_colours)
@@ -56,3 +58,4 @@ print(const4.constructor_info('ref'))
 
 const_test = db.Constructors(constructors_data, constructors)
 print(const_test.constructor_info('ref'))
+

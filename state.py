@@ -42,10 +42,13 @@ class LaptimesCleanup:
     def time_remove(self, time_multiplication):
         #odstrani z laptimes vybrane casy na kolo podle velikosti time_multiplication
         laptimes = self.remove_empty_lists()
+        print(f'\nTEST:{laptimes}:END_TEST\n')
         average_time = self.average()
         for i in range(len(laptimes)):
             for j in range(len(laptimes[i])):
                 if laptimes[i][j] > time_multiplication * average_time: #DODELAT!!!
                     laptimes[i][j] = int(average_time)
+
+        return laptimes
 
     

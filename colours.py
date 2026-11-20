@@ -6,8 +6,9 @@ class Colours:
         self.constructors = constructors
         self.colours = {'mclaren':'#FF8000', 'ferrari':'#E80020', 'red_bull':'#3671C6', 'mercedes':'#27F4D2', 'aston_martin':'#00665E','alpine':'#0090FF',
                         'williams':'#64C4FF','rb':'#6692FF','haas':'#FFFFFF','audi':'#C8CED4','cadillac':'#000000', 'sauber':'#00E701','alphatauri':'#1E5BC6',
-                        'renault':'#FFF500','racing_point':'#F596C8','alfa':'#981E32','force_india':'#EC0374','toro_rosso':'#00144A','manor':'#006DC1',
-                        'lotus_f1':'#B6995B','caterham':'#005030','marussia':'#B52921','hrt':'#D6C39A','lotus_racing':'#174222'}
+                        'renault':'#E6DC00','racing_point':'#F596C8','alfa':'#981E32','force_india':'#EC0374','toro_rosso':'#00144A','manor':'#006DC1',
+                        'lotus_f1':'#B6995B','caterham':'#005030','marussia':'#B52921','hrt':'#D6C39A','lotus_racing':'#174222','bmw_sauber':'#638CB3',
+                        'brawn':'#F7E705','virgin':'#F4322C'}
 
     def colours_per_constructor(self):
         #vrati barvu prislusici danemu konstrukterovi

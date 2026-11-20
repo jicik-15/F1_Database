@@ -72,4 +72,4 @@ print(lap_times)
 #print('------------------------------------------------------------------------------------------------------------')
 #print(lap_copy)
 
-visualisation(lap_times, 100, gp_name, colours)
+visualisation(lap_times, 50, gp_name, colours)
