@@ -33,10 +33,19 @@ for i in range(len(constructors)): #tento if uz neni potreba, nahrazeno vylepsen
     colours = col.Colours(const.constructor_info('ref'))
     constructor_colours.append(colours.colours_per_constructor())
 
+#vis.visualisation(lap_times, 100, gp_name, constructor_colours)
+
 print(lap_times)
 cleanup = st.LaptimesCleanup(lap_times)
 lap_clean = cleanup.remove_empty_lists()
+
+vis.visualisation(lap_clean, 100, gp_name, constructor_colours)
+
 lap_removed = cleanup.time_remove(2.5)
+
+test_laptimes_average = st.RaceState(lap_removed)
+print(f'CLEAN: {lap_removed} :CLEAN LAPS END')
+print(f'AVERAGE: {test_laptimes_average.average()} :AVERAGE TEST END\n')
 
 print(constructors)
 #print(lap_clean)
