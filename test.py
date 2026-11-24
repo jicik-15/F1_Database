@@ -39,7 +39,7 @@ print(lap_times)
 cleanup = st.LaptimesCleanup(lap_times)
 lap_clean = cleanup.remove_empty_lists()
 
-vis.visualisation(lap_clean, 100, gp_name, constructor_colours)
+#vis.visualisation(lap_clean, 100, gp_name, constructor_colours)
 
 lap_removed = cleanup.time_remove(2.5)
 
@@ -49,7 +49,7 @@ print(f'AVERAGE: {test_laptimes_average.average()} :AVERAGE TEST END\n')
 
 print(constructors)
 #print(lap_clean)
-print(lap_removed)
+#print(lap_removed)
 print(type('name'))
 
 #vis.visualisation(lap_times, 100, gp_name, constructor_colours)

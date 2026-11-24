@@ -15,17 +15,38 @@ class RaceState:
         else:
             return 1.4
 
-    def average(self): #NEFUNGUJE!!!
+    def average(self): #NEFUNGUJE!!! (seznam je prevraceny oproti tomu, co jsem predpokladal)
         avrage_per_lap = []
-        for i in range(len(self.race_laps)):
-            sum = 0
-            count = 0
-            for item in self.race_laps[i]:
-                sum += item
-                count += 1
+        count = []
 
-            avrage_per_lap.append(sum/count)
+        avrage_per_lap.append(self.race_laps[0])
+
+        for i in range(len(avrage_per_lap[0])):
+            count.append(0)
+
+        for item in self.race_laps:
+            for i in range(len(item)):
+                avrage_per_lap[0][i] += item[i]
+                count[i] += 1
+
+        print(f'Average: {avrage_per_lap} :Average END')
+
+        for i in range(len(avrage_per_lap[0])):
+            avrage_per_lap[0][i] = avrage_per_lap[0][i] / count[i]
+
+        print(f'Count: {count} :Count END')
         return avrage_per_lap
+
+
+        #for i in range(len(self.race_laps)):
+        #   sum = 0
+        #    count = 0
+        #    for item in self.race_laps[i]:
+        #        sum += item
+        #        count += 1
+
+        #    avrage_per_lap.append(sum/count)
+        #return avrage_per_lap
     
 
     def race_state(self):
