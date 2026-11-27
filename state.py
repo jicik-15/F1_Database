@@ -15,57 +15,47 @@ class RaceState:
         else:
             return 1.4
 
-    def average(self): #NEFUNGUJE!!! (seznam je prevraceny oproti tomu, co jsem predpokladal)
-        avrage_per_lap = []
+    def average(self):
+        #vypocita prumernou delku daneho kola v zavode z casu vsech jezdcu
+        average_per_lap = []
         count = []
 
-        avrage_per_lap.append(self.race_laps[0])
+        average_per_lap.append(self.race_laps[0])
 
-        for i in range(len(avrage_per_lap[0])):
+        for i in range(len(average_per_lap[0])):
             count.append(0)
 
         for item in self.race_laps:
             for i in range(len(item)):
-                avrage_per_lap[0][i] += item[i]
+                average_per_lap[0][i] += item[i]
                 count[i] += 1
 
-        print(f'Average: {avrage_per_lap} :Average END')
+        print(f'Average: {average_per_lap} :Average END')
 
-        for i in range(len(avrage_per_lap[0])):
-            avrage_per_lap[0][i] = avrage_per_lap[0][i] / count[i]
+        for i in range(len(average_per_lap[0])):
+            average_per_lap[0][i] = average_per_lap[0][i] / count[i]
 
         print(f'Count: {count} :Count END')
-        return avrage_per_lap
-
-
-        #for i in range(len(self.race_laps)):
-        #   sum = 0
-        #    count = 0
-        #    for item in self.race_laps[i]:
-        #        sum += item
-        #        count += 1
-
-        #    avrage_per_lap.append(sum/count)
-        #return avrage_per_lap
+        return average_per_lap
     
 
     def race_state(self):
-        if self.race_laps > 2 * average_time:
-            fig.set_facecolor('#CC0000') #barva pozadi cele vizualizace
-            ax.set_title(f'RED FLAG', color='#EEEEEE', fontweight="black")
-        
-        elif self.race_laps > 1.2 * average_time:
-            fig.set_facecolor('#F5C71A') #barva pozadi cele vizualizace
-            ax.set_title(f'SAFETY CAR', color='#EEEEEE', fontweight="black")
-        
-                #DODELAT: pri vypostu average_time je potreba odstranit kola pod cervenou vlajkou !!!!!!
+        #vrati stav zavodu pro kazde kolo
+        status = []
+        laptimes = self.average()
+        average_time = LaptimesCleanup(laptimes).average()
+        if laptimes > 2 * average_time:
+            laptimes.append('red_flag')
+            
+        elif laptimes > 1.2 * average_time:
+            laptimes.append('yellow_flag')
+            #DODELAT: pri vypostu average_time je potreba odstranit kola pod cervenou vlajkou !!!!!!
         else:
-            fig.set_facecolor('#222222')  #barva pozadi cele vizualizace
-            ax.set_title(f'{gp_name['name']} {gp_name['year']}', color='#EEEEEE', fontweight="black") #nastaveni nadpisu
-        ...
+            laptimes.append('green_flag')
+            
 
 class LaptimesCleanup:
-
+    
     def __init__(self, laptimes):
         self.laptimes = laptimes #laptimes je list listů
 
