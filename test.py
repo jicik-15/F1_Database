@@ -34,16 +34,22 @@ for i in range(len(constructors)): #tento if uz neni potreba, nahrazeno vylepsen
     constructor_colours.append(colours.colours_per_constructor())
 
 #vis.visualisation(lap_times, 100, gp_name, constructor_colours)
+#test_laptimes_average = st.RaceState(lap_times)
+#print(test_laptimes_average.race_state())
 
-print(lap_times)
+#print(lap_times)
 cleanup = st.LaptimesCleanup(lap_times)
 lap_clean = cleanup.remove_empty_lists()
 
 #vis.visualisation(lap_clean, 100, gp_name, constructor_colours)
 
-lap_removed = cleanup.time_remove(2.5)
 
-test_laptimes_average = st.RaceState(lap_removed)
+
+test_laptimes_average = st.RaceState(lap_clean)
+lap_removed = cleanup.time_remove(2.5)
+avg = cleanup.average()
+
+print(test_laptimes_average.race_state(avg))
 print(f'CLEAN: {lap_removed} :CLEAN LAPS END')
 print(f'AVERAGE: {test_laptimes_average.average()} :AVERAGE TEST END\n')
 
@@ -51,6 +57,7 @@ print(constructors)
 #print(lap_clean)
 #print(lap_removed)
 print(type('name'))
+
 
 #vis.visualisation(lap_times, 100, gp_name, constructor_colours)
 #vis.visualisation(lap_clean, 100, gp_name, constructor_colours)

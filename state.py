@@ -39,27 +39,32 @@ class RaceState:
         return average_per_lap
     
 
-    def race_state(self):
+    def race_state(self, average_time):
         #vrati stav zavodu pro kazde kolo
         status = []
         laptimes = self.average()
-        average_time = LaptimesCleanup(laptimes).average()
-        if laptimes > 2 * average_time:
-            laptimes.append('red_flag')
-            
-        elif laptimes > 1.2 * average_time:
-            laptimes.append('yellow_flag')
-            #DODELAT: pri vypostu average_time je potreba odstranit kola pod cervenou vlajkou !!!!!!
-        else:
-            laptimes.append('green_flag')
-            
+        #average_time = LaptimesCleanup(laptimes).average()
+        print(f'TEST_RS: laptimes: {laptimes}\n average_time: {average_time}')
+        for i in range(len(laptimes[0])):
+            if laptimes[0][i] > 2 * average_time:
+                status.append('red_flag')
+                
+            elif laptimes[0][i] > 1.1 * average_time:
+                status.append('yellow_flag')
+                #DODELAT: pri vypostu average_time je potreba odstranit kola pod cervenou vlajkou !!!!!!
+            else:
+                status.append('green_flag')
+
+        return status
+                
 
 class LaptimesCleanup:
-    
+
     def __init__(self, laptimes):
         self.laptimes = laptimes #laptimes je list listů
 
     def remove_empty_lists(self):
+        #odstrani ze seznamu prazdne vnorene seznamy
         clean_laptimes = []
         for item in self.laptimes:
             if len(item) > 0:
@@ -82,7 +87,7 @@ class LaptimesCleanup:
     def time_remove(self, time_multiplication):
         #odstrani z laptimes vybrane casy na kolo podle velikosti time_multiplication
         laptimes = self.remove_empty_lists()
-        print(f'\nTEST:{laptimes}:END_TEST\n')
+        #print(f'\nTEST:{laptimes}:END_TEST\n')
         average_time = self.average()
         for i in range(len(laptimes)):
             for j in range(len(laptimes[i])):
